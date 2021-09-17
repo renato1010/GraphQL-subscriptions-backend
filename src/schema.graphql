@@ -13,3 +13,7 @@ type Query {
 type Mutation {
   createResponse(input: CreateResponse!): String
 }
+
+type Subscription {
+  newResponseAdded: [Response]
+}

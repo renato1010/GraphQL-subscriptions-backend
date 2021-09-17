@@ -14,9 +14,9 @@ import { ResponseDataSource } from './datasources';
 const app = express();
 const httpServer = createServer(app);
 const typeDefs = fs.readFileSync(path.join(__dirname, 'schema.graphql'), 'utf-8');
-const port = process.env.SERVER_PORT;
+const PORT = process.env.SERVER_PORT;
 const schema = makeExecutableSchema({ typeDefs, resolvers });
-const pubsub = new PubSub();
+export const pubsub = new PubSub();
 
 const mount = async () => {
   const { collections } = await connectToDatabase();
@@ -24,24 +24,39 @@ const mount = async () => {
   if (!responses) {
     throw new Error('No DB connection available');
   }
+  let subscriptionServer: SubscriptionServer;
+
   const server = new ApolloServer({
     schema,
+    context: () => ({ pubsub }),
     dataSources: () => ({
       responses: new ResponseDataSource(responses),
     }),
+    plugins: [
+      {
+        async serverWillStart() {
+          return {
+            async drainServer() {
+              subscriptionServer.close();
+            },
+          };
+        },
+      },
+    ],
   });
+
   try {
     await server.start();
     server.applyMiddleware({ app, path: '/' });
-    SubscriptionServer.create(
+    subscriptionServer = SubscriptionServer.create(
       { schema, execute, subscribe },
       { server: httpServer, path: server.graphqlPath }
     );
     // Start the server
-    httpServer.listen(port, () => {
+    httpServer.listen(PORT, () => {
       // eslint-disable-next-line no-console
-      console.log(`🚀 Server ready at http://localhost:${port}${server.graphqlPath}`);
-      console.log(`🚀 Subscription endpoint ready at ws://localhost:${port}${server.graphqlPath}`);
+      console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`);
+      console.log(`🚀 Subscription endpoint ready at ws://localhost:${PORT}${server.graphqlPath}`);
     });
   } catch (error) {
     console.error(`GraphQL server error: ${error}`);
