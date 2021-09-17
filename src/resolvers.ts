@@ -1,5 +1,5 @@
-import { IResolvers } from '@graphql-tools/utils'
-import { ResponseDataSource } from 'datasources/ResponsesDataSource'
+import { IResolvers } from '@graphql-tools/utils';
+import { ResponseDataSource } from 'datasources/ResponsesDataSource';
 
 export const resolvers: IResolvers = {
   Query: {
@@ -9,8 +9,8 @@ export const resolvers: IResolvers = {
       _args,
       { dataSources }: { dataSources: { responses: ResponseDataSource } }
     ) => {
-      const { responses } = dataSources
-      return responses.getAllResponses()
+      const { responses } = dataSources;
+      return responses.getAllResponses();
     },
   },
   Mutation: {
@@ -19,10 +19,10 @@ export const resolvers: IResolvers = {
       { input }: { input: { response: string } },
       { dataSources }: { dataSources: { responses: ResponseDataSource } }
     ) => {
-      const { response } = input
-      const { responses } = dataSources
+      const { response } = input;
+      const { responses } = dataSources;
 
-      return responses.createResponse(response)
+      return responses.createResponse(response);
     },
   },
-}
+};
