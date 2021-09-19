@@ -1,0 +1,19 @@
+type Response {
+  response: String!
+  createdAt: String!
+}
+input CreateResponse {
+  response: String!
+}
+type Query {
+  hello: String!
+  allResponses: [Response]
+}
+
+type Mutation {
+  createResponse(input: CreateResponse!): String
+}
+
+type Subscription {
+  newResponseAdded: Response
+}
