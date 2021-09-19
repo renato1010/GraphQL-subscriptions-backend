@@ -23,8 +23,8 @@ export const resolvers: IResolvers = {
       const { response } = input;
       const { responses } = dataSources;
       const id = await responses.createResponse(response);
-      const allResponses = await responses.getAllResponses();
-      pubsub.publish('NEW_RESPONSE', { newResponseAdded: allResponses });
+      const newResponse = await responses.getResponseById(id);
+      pubsub.publish('NEW_RESPONSE', { newResponseAdded: newResponse });
       return id;
     },
   },

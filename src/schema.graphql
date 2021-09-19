@@ -15,5 +15,5 @@ type Mutation {
 }
 
 type Subscription {
-  newResponseAdded: [Response]
+  newResponseAdded: Response
 }
