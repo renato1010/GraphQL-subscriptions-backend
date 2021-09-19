@@ -14,7 +14,7 @@ import { ResponseDataSource } from './datasources';
 const app = express();
 const httpServer = createServer(app);
 const typeDefs = fs.readFileSync(path.join(__dirname, 'schema.graphql'), 'utf-8');
-const PORT = process.env.SERVER_PORT;
+const PORT = process.env.PORT || 4000; // setted by Heroku
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 export const pubsub = new PubSub();
 

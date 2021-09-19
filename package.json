@@ -4,8 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node-dev -r dotenv/config src/index.ts"
+    "start": "node -r dotenv/config dist/index.js",
+    "dev": "ts-node-dev -r dotenv/config src/index.ts",
+    "clean": "rm -rf dist",
+    "compile": "tsc --outDir dist",
+    "copy": "cp src/schema.graphql dist/schema.graphql",
+    "build": "run-s clean compile copy"
   },
   "engines": {
     "node": ">=14"
@@ -15,6 +19,7 @@
   "license": "ISC",
   "devDependencies": {
     "@tsconfig/node14": "^1.0.1",
+    "npm-run-all": "^4.1.5",
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.4.3"
   },
