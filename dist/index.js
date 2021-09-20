@@ -18,7 +18,7 @@ const resolvers_1 = require("./resolvers");
 const db_1 = require("./db");
 const datasources_1 = require("./datasources");
 const app = (0, express_1.default)();
-app.use((0, cors_1.default)());
+app.use((0, cors_1.default)({ origin: '*' }));
 const httpServer = (0, http_1.createServer)(app);
 const typeDefs = fs_1.default.readFileSync(path_1.default.join(__dirname, 'schema.graphql'), 'utf-8');
 const PORT = process.env.PORT || 4000; // setted by Heroku
