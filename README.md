@@ -3,9 +3,13 @@
 If want to run project locally
 
 - Clone repo
-- checkout to brach `dev`
-- Will need a `.env` file with database secrets that is not tracked but is supplied by Email
-- Install deps
+- Will need an `.env` file with database secrets that is not tracked but is supplied by Email
+- Install deps and run
+
+```bash
+yarn
+yarn dev
+```
 
 Set a minimum GraphQL server at [`src/index.ts`](src/index.ts)  
 Then run dev server
