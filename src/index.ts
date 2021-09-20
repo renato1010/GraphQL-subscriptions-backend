@@ -13,7 +13,7 @@ import { connectToDatabase } from './db';
 import { ResponseDataSource } from './datasources';
 
 const app = express();
-app.use(cors());
+app.use(cors({ origin: '*' }));
 const httpServer = createServer(app);
 const typeDefs = fs.readFileSync(path.join(__dirname, 'schema.graphql'), 'utf-8');
 const PORT = process.env.PORT || 4000; // setted by Heroku
