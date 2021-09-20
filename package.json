@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node -r dotenv/config dist/index.js",
+    "start": "build serve",
+    "serve": "node dist/index.js",
     "dev": "ts-node-dev -r dotenv/config src/index.ts",
     "clean": "rm -rf dist",
     "compile": "tsc --outDir dist",
@@ -25,9 +26,11 @@
   },
   "dependencies": {
     "@graphql-tools/schema": "^8.2.0",
+    "@types/cors": "^2.8.12",
     "apollo-datasource": "^3.1.0",
     "apollo-server-core": "^3.3.0",
     "apollo-server-express": "^3.3.0",
+    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "graphql": "^15.5.3",

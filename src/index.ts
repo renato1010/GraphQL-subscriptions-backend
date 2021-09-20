@@ -7,11 +7,13 @@ import { execute, subscribe } from 'graphql';
 import { PubSub } from 'graphql-subscriptions';
 import { SubscriptionServer } from 'subscriptions-transport-ws';
 import { makeExecutableSchema } from '@graphql-tools/schema';
+import cors from 'cors';
 import { resolvers } from './resolvers';
 import { connectToDatabase } from './db';
 import { ResponseDataSource } from './datasources';
 
 const app = express();
+app.use(cors());
 const httpServer = createServer(app);
 const typeDefs = fs.readFileSync(path.join(__dirname, 'schema.graphql'), 'utf-8');
 const PORT = process.env.PORT || 4000; // setted by Heroku
