@@ -13,13 +13,15 @@ const graphql_1 = require("graphql");
 const graphql_subscriptions_1 = require("graphql-subscriptions");
 const subscriptions_transport_ws_1 = require("subscriptions-transport-ws");
 const schema_1 = require("@graphql-tools/schema");
+const cors_1 = __importDefault(require("cors"));
 const resolvers_1 = require("./resolvers");
 const db_1 = require("./db");
 const datasources_1 = require("./datasources");
 const app = (0, express_1.default)();
+app.use((0, cors_1.default)());
 const httpServer = (0, http_1.createServer)(app);
 const typeDefs = fs_1.default.readFileSync(path_1.default.join(__dirname, 'schema.graphql'), 'utf-8');
-const PORT = process.env.SERVER_PORT;
+const PORT = process.env.PORT || 4000; // setted by Heroku
 const schema = (0, schema_1.makeExecutableSchema)({ typeDefs, resolvers: resolvers_1.resolvers });
 exports.pubsub = new graphql_subscriptions_1.PubSub();
 const mount = async () => {
