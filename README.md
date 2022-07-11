@@ -1,4 +1,4 @@
-# PickFu Backend
+# GraphQL Subscriptions(real-time) Backend
 
 If want to run project locally
 
